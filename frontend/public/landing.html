@@ -46,23 +46,33 @@ section{padding:88px 0;}
 .section-label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--deep);margin-bottom:12px;}
 .section-title{font-family:"Space Grotesk",sans-serif;font-size:clamp(26px,4vw,40px);font-weight:700;color:var(--text-dark);margin-bottom:14px;line-height:1.2;}
 .section-sub{font-size:15px;color:var(--text-mid);max-width:500px;line-height:1.7;}
-.arch-wrapper{display:grid;grid-template-columns:1fr 460px;gap:60px;align-items:start;}
-.arch-diagram{display:flex;flex-direction:column;align-items:center;}
-.arch-node{width:100%;max-width:340px;padding:18px 22px;transition:transform .2s;cursor:default;}
-.arch-node:hover{transform:translateX(6px);}
-.node-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:10px;box-shadow:0 2px 10px rgba(12,113,198,0.18);}
-.node-title{font-family:"Space Grotesk",sans-serif;font-size:15px;font-weight:700;color:var(--text-dark);margin-bottom:4px;}
-.node-desc{font-size:12px;color:var(--text-mid);line-height:1.5;}
-.node-tag{display:inline-block;margin-top:8px;font-size:10px;font-weight:600;letter-spacing:.5px;padding:3px 10px;border-radius:100px;background:rgba(12,113,198,0.10);color:var(--deep);}
-.arch-connector{display:flex;flex-direction:column;align-items:center;padding:3px 0;}
-.connector-line{width:2px;height:22px;background:linear-gradient(180deg,var(--sky),var(--deep));opacity:.55;}
-.connector-dot{width:10px;height:10px;border-radius:50%;background:var(--deep);box-shadow:0 0 8px rgba(12,113,198,.45);border:2px solid #fff;}
-.retry-badge{position:absolute;right:-96px;top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:5px;background:rgba(134,231,80,0.20);border:1px solid rgba(134,231,80,.5);border-radius:100px;padding:4px 12px;font-size:10px;font-weight:600;color:#2d7a0a;white-space:nowrap;}
-.n1 .node-icon{background:linear-gradient(135deg,#74E4FF,#0C71C6);}
-.n2 .node-icon{background:linear-gradient(135deg,#0C71C6,#064a8c);}
-.n3 .node-icon{background:linear-gradient(135deg,#86E750,#0C71C6);}
-.n4 .node-icon{background:linear-gradient(135deg,#f59e0b,#ef4444);}
-.n5 .node-icon{background:linear-gradient(135deg,#86E750,#6AB63F);}
+.arch-wrapper{display:grid;grid-template-columns:minmax(0,1fr) 460px;gap:60px;align-items:start;}
+.arch-scroll{overflow-x:auto;overflow-y:visible;padding:4px 4px 84px;margin:0 -4px;-webkit-overflow-scrolling:touch;}
+.arch-diagram-h{position:relative;display:flex;align-items:flex-start;width:1076px;}
+.arch-node-h{position:relative;flex:0 0 148px;padding:14px 10px;text-align:center;transition:transform .2s;cursor:default;z-index:1;}
+.arch-node-h:hover{transform:translateY(-4px);}
+.node-icon-h{width:36px;height:36px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:16px;margin:0 auto 8px;box-shadow:0 2px 10px rgba(12,113,198,0.20);}
+.node-title-h{font-family:"Space Grotesk",sans-serif;font-size:13px;font-weight:700;color:var(--text-dark);margin-bottom:4px;}
+.node-desc-h{font-size:10.5px;color:var(--text-mid);line-height:1.4;}
+.n1 .node-icon-h{background:linear-gradient(135deg,#74E4FF,#0C71C6);}
+.n2 .node-icon-h{background:linear-gradient(135deg,#0C71C6,#064a8c);}
+.n3 .node-icon-h{background:linear-gradient(135deg,#86E750,#0C71C6);}
+.n4 .node-icon-h{background:linear-gradient(135deg,#f59e0b,#ef4444);}
+.n5 .node-icon-h{background:linear-gradient(135deg,#86E750,#6AB63F);}
+.arch-arrow{flex:0 0 84px;padding-top:24px;display:flex;flex-direction:column;align-items:center;}
+.arrow-line{position:relative;width:100%;height:2px;background:rgba(12,113,198,.18);border-radius:2px;overflow:hidden;}
+.arrow-line::after{content:"";position:absolute;top:0;left:-40%;width:40%;height:100%;background:linear-gradient(90deg,transparent,var(--sky),var(--deep),transparent);animation:flow-move 1.8s linear infinite;}
+.arrow-head{width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;border-left:6px solid var(--deep);align-self:flex-end;margin-top:-3px;margin-right:-1px;}
+.arrow-label{margin-top:8px;font-size:9px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;color:var(--text-mid);text-align:center;white-space:nowrap;}
+.arrow-label b.good{color:#2d7a0a;}
+.arrow-label b.retry{color:#c0392b;}
+@keyframes flow-move{from{left:-40%;}to{left:100%;}}
+@keyframes flow-move-v{from{top:-40%;}to{top:100%;}}
+.retry-loop{position:absolute;left:0;top:100%;width:1076px;height:72px;pointer-events:none;}
+.retry-loop svg{width:100%;height:100%;overflow:visible;}
+.retry-path{fill:none;stroke:#ef4444;stroke-width:2;stroke-dasharray:6 5;animation:retry-flow 1s linear infinite;}
+@keyframes retry-flow{to{stroke-dashoffset:-22;}}
+.retry-loop-label{position:absolute;left:538px;top:44px;transform:translateX(-50%);font-size:9px;font-weight:700;letter-spacing:.3px;color:#c0392b;background:rgba(255,255,255,.85);padding:2px 9px;border-radius:100px;border:1px solid rgba(239,68,68,.35);white-space:nowrap;z-index:1;}
 .arch-stack{display:flex;flex-direction:column;gap:12px;margin-top:32px;}
 .stack-item{padding:13px 16px;display:flex;align-items:center;gap:14px;}
 .stack-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
@@ -105,7 +115,7 @@ footer{padding:44px 0;text-align:center;border-top:1px solid rgba(255,255,255,.6
 .footer-sub{font-size:12px;color:var(--text-mid);}
 .footer-links{display:flex;gap:22px;justify-content:center;margin-top:14px;}
 .footer-links a{font-size:12px;color:var(--text-mid);text-decoration:none;font-weight:500;}
-@media(max-width:768px){.arch-wrapper{grid-template-columns:1fr;}.features-grid{grid-template-columns:1fr;}.retry-badge{display:none;}.nav-links{display:none;}.hero-stats{padding:16px 20px;gap:24px;}}
+@media(max-width:768px){.arch-wrapper{grid-template-columns:1fr;}.features-grid{grid-template-columns:1fr;}.nav-links{display:none;}.hero-stats{padding:16px 20px;gap:24px;}.arch-scroll{overflow-x:visible;padding-bottom:4px;}.arch-diagram-h{flex-direction:column;width:100%;align-items:stretch;}.arch-node-h{flex:none;width:100%;max-width:340px;margin:0 auto;text-align:left;padding:16px 20px;}.node-icon-h{margin:0 0 8px;}.node-desc-h{font-size:12px;}.arch-arrow{flex:none;flex-direction:row;width:100%;max-width:340px;margin:0 auto;padding:8px 0;align-items:center;gap:10px;}.arrow-line{width:2px;height:22px;}.arrow-line::after{left:0;top:-40%;width:100%;height:40%;background:linear-gradient(180deg,transparent,var(--sky),var(--deep),transparent);animation:flow-move-v 1.8s linear infinite;}.arrow-head{border-left:4px solid transparent;border-right:4px solid transparent;border-top:6px solid var(--deep);border-bottom:none;align-self:center;margin:0;}.arrow-label{margin-top:0;text-align:left;white-space:normal;}.retry-loop{display:none;}}
 </style>
 </head>
 <body>
@@ -149,17 +159,26 @@ footer{padding:44px 0;text-align:center;border-top:1px solid rgba(255,255,255,.6
       <div>
         <p class="section-label">Agent Architecture</p>
         <h2 class="section-title">How the agent thinks</h2>
-        <p class="section-sub">A vertical ReAct loop — each node has a single responsibility, connected by typed LangGraph state and conditional edges.</p>
-        <div class="arch-diagram" style="margin-top:36px;">
-          <div class="arch-node glass n1"><div class="node-icon">🧠</div><div class="node-title">Understand</div><div class="node-desc">Reformulates the clinical question into precise PubMed keywords. Strips ambiguity, targets plain terms for better recall.</div><span class="node-tag">LLM · Query Planning</span></div>
-          <div class="arch-connector"><div class="connector-line"></div><div class="connector-dot"></div><div class="connector-line"></div></div>
-          <div class="arch-node glass n2"><div class="node-icon">🔍</div><div class="node-title">Search</div><div class="node-desc">Calls PubMed via Biopython Entrez. Fetches top 5 abstracts with authors, PMID, and URLs. Falls back to raw question if needed.</div><span class="node-tag">Tool Call · PubMed API</span></div>
-          <div class="arch-connector"><div class="connector-line"></div><div class="connector-dot"></div><div class="connector-line"></div></div>
-          <div class="arch-node glass n3"><div class="node-icon">✍️</div><div class="node-title">Synthesize</div><div class="node-desc">LLM synthesizes a grounded answer using only retrieved context. Inline citation markers [1]–[5] map to real PubMed papers. No hallucination.</div><span class="node-tag">LLM · Grounded Generation</span></div>
-          <div class="arch-connector"><div class="connector-line"></div><div class="connector-dot"></div><div class="connector-line"></div></div>
-          <div class="arch-node glass n4" style="position:relative;"><div class="node-icon">🪞</div><div class="node-title">Reflect</div><div class="node-desc">Self-critique node. LLM checks: on-topic? Grounded? Hallucination-free? Returns GOOD → end, or RETRY → re-search.</div><span class="node-tag">Self-Reflection · Conditional Edge</span><div class="retry-badge">↩ RETRY if poor</div></div>
-          <div class="arch-connector"><div class="connector-line"></div><div class="connector-dot"></div><div class="connector-line"></div></div>
-          <div class="arch-node glass n5"><div class="node-icon">✅</div><div class="node-title">Response</div><div class="node-desc">Structured Pydantic response: grounded answer, citations with PubMed URLs, step count, and RAGAS eval scores.</div><span class="node-tag">Output · FastAPI · Pydantic</span></div>
+        <p class="section-sub">A five-step ReAct loop — each node has a single responsibility, connected by typed LangGraph state and conditional edges.</p>
+        <div class="arch-scroll">
+        <div class="arch-diagram-h" style="margin-top:36px;">
+          <div class="arch-node-h glass n1"><div class="node-icon-h">🧠</div><div class="node-title-h">Understand</div><div class="node-desc-h">Reformulates into PubMed keywords</div></div>
+          <div class="arch-arrow"><div class="arrow-line"></div><div class="arrow-head"></div><div class="arrow-label">MeSH Query</div></div>
+          <div class="arch-node-h glass n2"><div class="node-icon-h">🔍</div><div class="node-title-h">Search</div><div class="node-desc-h">Fetches top 5 PubMed abstracts</div></div>
+          <div class="arch-arrow"><div class="arrow-line"></div><div class="arrow-head"></div><div class="arrow-label">5 Abstracts</div></div>
+          <div class="arch-node-h glass n3"><div class="node-icon-h">✍️</div><div class="node-title-h">Synthesize</div><div class="node-desc-h">Generates grounded, cited answer</div></div>
+          <div class="arch-arrow"><div class="arrow-line"></div><div class="arrow-head"></div><div class="arrow-label">Cited Answer</div></div>
+          <div class="arch-node-h glass n4"><div class="node-icon-h">🪞</div><div class="node-title-h">Reflect</div><div class="node-desc-h">Self-checks grounding &amp; hallucination</div></div>
+          <div class="arch-arrow"><div class="arrow-line"></div><div class="arrow-head"></div><div class="arrow-label"><b class="good">GOOD</b> / <b class="retry">RETRY</b></div></div>
+          <div class="arch-node-h glass n5"><div class="node-icon-h">✅</div><div class="node-title-h">Response</div><div class="node-desc-h">Cited answer + eval scores</div></div>
+          <div class="retry-loop">
+            <svg viewBox="0 0 1076 72" preserveAspectRatio="none">
+              <path class="retry-path" d="M 770 0 C 770 48, 306 48, 306 0"></path>
+              <polygon points="306,0 299,12 313,12" fill="#ef4444"></polygon>
+            </svg>
+            <div class="retry-loop-label">↩ RETRY → re-search</div>
+          </div>
+        </div>
         </div>
       </div>
       <div id="stack">
