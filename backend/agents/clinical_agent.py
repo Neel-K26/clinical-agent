@@ -1,14 +1,14 @@
 from langgraph.graph import StateGraph, END
-from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_groq import ChatGroq
 from langchain_core.messages import HumanMessage, AIMessage
 from agents.state import AgentState
 from tools.pubmed import search_pubmed
 import os
 
 
-llm = ChatGoogleGenerativeAI(
-    model="gemini-2.0-flash-lite",
-    google_api_key=os.getenv("GEMINI_API_KEY"),
+llm = ChatGroq(
+    model="llama-3.1-8b-instant",
+    groq_api_key=os.getenv("GROQ_API_KEY"),
     temperature=0.2,
     max_retries=1,
 )
@@ -17,11 +17,13 @@ llm = ChatGoogleGenerativeAI(
 # ── Node 1: understand the question ──────────────────────────────────────────
 def understand_node(state: AgentState) -> AgentState:
     """Reformulate the clinical question for better PubMed search."""
-    prompt = f"""You are a clinical AI assistant. 
+    prompt = f"""You are a clinical AI assistant.
 A user asked: "{state['question']}"
 
-Reformulate this as a precise PubMed search query (max 8 words, 
-use MeSH terms where possible). Return ONLY the search query, nothing else."""
+Reformulate this as a concise PubMed search query (max 8 words) using
+plain clinical keywords. Do NOT use PubMed field-tag syntax like [Mesh],
+[Subheading], or [tiab] — plain keywords are automatically mapped to MeSH
+terms by PubMed. Return ONLY the search query, nothing else."""
 
     response = llm.invoke([HumanMessage(content=prompt)])
     search_query = response.content.strip()
@@ -42,6 +44,8 @@ def search_node(state: AgentState) -> AgentState:
     """Call PubMed tool and store results."""
     query = state.get("_search_query", state["question"])
     results = search_pubmed(query, max_results=5)
+    if not results:
+        results = search_pubmed(state["question"], max_results=5)
 
     return {
         **state,
