@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from api.routes import router
 
 app = FastAPI(
-    title="ClinicalAgent API",
+    title="ClinIQ API",
     description="Agentic clinical reasoning over medical literature",
     version="1.0.0"
 )
@@ -28,4 +28,4 @@ app.include_router(router, prefix="/api")
 
 @app.get("/health")
 def health():
-    return {"status": "ok", "service": "ClinicalAgent"}
+    return {"status": "ok", "service": "ClinIQ"}

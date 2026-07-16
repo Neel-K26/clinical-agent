@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ClinicalAgent",
-  description: "Agentic clinical reasoning over medical literature",
+  title: "ClinIQ",
+  description: "Ask clinical. Get cited. Evidence-based answers with PubMed citations.",
 };
 
 export default function RootLayout({

@@ -1,13 +1,14 @@
-# ClinicalAgent
+# ClinIQ
 
+> Ask clinical. Get cited.  
 > Production agentic pipeline for clinical reasoning over medical literature.  
-> Built with LangGraph · Gemini Flash · PubMed API · FastAPI · Next.js
+> Built with LangGraph · Groq (Llama 3.1) · PubMed API · FastAPI · Next.js
 
 ---
 
 ## What this is
 
-ClinicalAgent is a multi-step reasoning agent that answers clinical questions using real PubMed literature. It doesn't just retrieve — it plans, searches, synthesizes, and self-reflects before returning an answer.
+ClinIQ is a multi-step reasoning agent that answers clinical questions using real PubMed literature. It doesn't just retrieve — it plans, searches, synthesizes, and self-reflects before returning an answer.
 
 ---
 
@@ -59,10 +60,10 @@ User Question
 | Layer | Technology |
 |---|---|
 | Agent framework | LangGraph 0.1.x |
-| LLM | Gemini 1.5 Flash |
+| LLM | Groq — Llama 3.1 8B Instant |
 | Literature search | PubMed via Biopython Entrez |
 | Backend | FastAPI + Uvicorn |
-| Frontend | Next.js 14 + TypeScript |
+| Frontend | Next.js 16 + TypeScript |
 | Evaluation | RAGAS (faithfulness, answer relevancy) |
 | Deployment | Render (backend) + Vercel (frontend) |
 
@@ -84,11 +85,13 @@ clinical-agent/
 │   ├── main.py               # FastAPI app + CORS
 │   └── requirements.txt
 ├── frontend/
-│   └── src/
-│       ├── lib/
-│       │   └── api.ts        # Single API client (no hardcoded URLs)
-│       ├── components/
-│       └── app/
+│   ├── lib/
+│   │   └── api.ts            # Single API client (no hardcoded URLs)
+│   ├── app/
+│   │   ├── page.tsx          # Chat UI
+│   │   └── layout.tsx
+│   └── public/
+│       └── aero-bg.webp      # Hero background
 └── README.md
 ```
 
@@ -104,7 +107,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 
 cp .env.example .env
-# Fill in GEMINI_API_KEY and ENTREZ_EMAIL
+# Fill in GROQ_API_KEY and ENTREZ_EMAIL
 
 uvicorn main:app --reload --port 8000
 ```
@@ -129,7 +132,7 @@ npm run dev
 2. New Web Service → connect repo → `backend/` root
 3. Build: `pip install -r requirements.txt`
 4. Start: `uvicorn main:app --host 0.0.0.0 --port $PORT`
-5. Add env vars: `GEMINI_API_KEY`, `ENTREZ_EMAIL`
+5. Add env vars: `GROQ_API_KEY`, `ENTREZ_EMAIL`
 
 ### Frontend → Vercel
 1. Import repo → `frontend/` root
@@ -143,7 +146,7 @@ npm run dev
 
 ## Why environment variables matter
 
-OmniRAG-style NetworkError happens when Next.js bakes the backend URL at build time. The fix: all API calls go through `src/lib/api.ts` which reads `process.env.NEXT_PUBLIC_API_URL` at runtime. Set this in the Vercel dashboard, never in committed code.
+OmniRAG-style NetworkError happens when Next.js bakes the backend URL at build time. The fix: all API calls go through `lib/api.ts` which reads `process.env.NEXT_PUBLIC_API_URL` at runtime. Set this in the Vercel dashboard, never in committed code.
 
 ---
 
