@@ -1,0 +1,31 @@
+from dotenv import load_dotenv
+
+load_dotenv()
+
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from api.routes import router
+
+app = FastAPI(
+    title="ClinicalAgent API",
+    description="Agentic clinical reasoning over medical literature",
+    version="1.0.0"
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:3000",
+        "https://clinicalagent.vercel.app",
+        # add your vercel preview URLs here
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+app.include_router(router, prefix="/api")
+
+@app.get("/health")
+def health():
+    return {"status": "ok", "service": "ClinicalAgent"}
