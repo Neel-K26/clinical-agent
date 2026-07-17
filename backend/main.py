@@ -14,11 +14,8 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "https://clinicalagent.vercel.app",
-        # add your vercel preview URLs here
-    ],
+    # TODO: scope this down to the real deployed frontend origin(s) before shipping.
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

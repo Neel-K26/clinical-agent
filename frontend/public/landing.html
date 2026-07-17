@@ -29,8 +29,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:13px 40px;display:fl
 .hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
 .btn-primary{background:linear-gradient(135deg,var(--deep),#0a5ba8);color:#fff;border:none;padding:15px 34px;border-radius:13px;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 4px 22px rgba(12,113,198,0.50);transition:all .2s;text-decoration:none;display:inline-block;}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(12,113,198,0.60);}
-.btn-ghost{background:rgba(255,255,255,0.18);backdrop-filter:blur(12px);color:#fff;border:1.5px solid rgba(255,255,255,0.55);padding:15px 34px;border-radius:13px;font-size:15px;font-weight:600;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block;}
-.btn-ghost:hover{background:rgba(255,255,255,0.30);}
+.btn-ghost{background:rgba(255,255,255,0.85);backdrop-filter:blur(12px);color:#0C71C6;border:2px solid #0C71C6;padding:15px 34px;border-radius:13px;font-size:15px;font-weight:600;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block;}
+.btn-ghost:hover{background:#fff;}
 .hero-stats{display:flex;justify-content:center;margin-top:56px;flex-wrap:wrap;background:rgba(255,255,255,0.15);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.30);border-radius:18px;padding:20px 40px;gap:40px;box-shadow:0 4px 24px rgba(0,0,0,0.15);}
 .stat{text-align:center;}
 .stat-num{font-family:"Space Grotesk",sans-serif;font-size:28px;font-weight:700;color:#fff;display:block;text-shadow:0 2px 8px rgba(0,0,0,0.2);}
@@ -46,38 +46,31 @@ section{padding:88px 0;}
 .section-label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--deep);margin-bottom:12px;}
 .section-title{font-family:"Space Grotesk",sans-serif;font-size:clamp(26px,4vw,40px);font-weight:700;color:var(--text-dark);margin-bottom:14px;line-height:1.2;}
 .section-sub{font-size:15px;color:var(--text-mid);max-width:500px;line-height:1.7;}
-.arch-wrapper{display:grid;grid-template-columns:minmax(0,1fr) 460px;gap:60px;align-items:start;}
-.arch-scroll{overflow-x:auto;overflow-y:visible;padding:4px 4px 84px;margin:0 -4px;-webkit-overflow-scrolling:touch;}
-.arch-diagram-h{position:relative;display:flex;align-items:flex-start;width:1076px;}
-.arch-node-h{position:relative;flex:0 0 148px;padding:14px 10px;text-align:center;transition:transform .2s;cursor:default;z-index:1;}
+.arch-diagram-wrap{overflow:hidden;margin-top:44px;}
+.arch-diagram-grid{position:relative;display:grid;grid-template-columns:repeat(5,1fr);}
+.arch-cell{position:relative;min-width:0;}
+.arch-node-h{position:relative;max-width:140px;margin:0 auto;padding:12px 8px;text-align:center;transition:transform .2s;cursor:default;z-index:1;}
 .arch-node-h:hover{transform:translateY(-4px);}
-.node-icon-h{width:36px;height:36px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:16px;margin:0 auto 8px;box-shadow:0 2px 10px rgba(12,113,198,0.20);}
-.node-title-h{font-family:"Space Grotesk",sans-serif;font-size:13px;font-weight:700;color:var(--text-dark);margin-bottom:4px;}
-.node-desc-h{font-size:10.5px;color:var(--text-mid);line-height:1.4;}
+.node-icon-h{width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:15px;margin:0 auto 8px;box-shadow:0 2px 10px rgba(12,113,198,0.20);}
+.node-title-h{font-family:"Space Grotesk",sans-serif;font-size:12px;font-weight:700;color:var(--text-dark);margin-bottom:4px;}
+.node-desc-h{font-size:9.5px;color:var(--text-mid);line-height:1.35;}
 .n1 .node-icon-h{background:linear-gradient(135deg,#74E4FF,#0C71C6);}
 .n2 .node-icon-h{background:linear-gradient(135deg,#0C71C6,#064a8c);}
 .n3 .node-icon-h{background:linear-gradient(135deg,#86E750,#0C71C6);}
 .n4 .node-icon-h{background:linear-gradient(135deg,#f59e0b,#ef4444);}
 .n5 .node-icon-h{background:linear-gradient(135deg,#86E750,#6AB63F);}
-.arch-arrow{flex:0 0 84px;padding-top:24px;display:flex;flex-direction:column;align-items:center;}
-.arrow-line{position:relative;width:100%;height:2px;background:rgba(12,113,198,.18);border-radius:2px;overflow:hidden;}
-.arrow-line::after{content:"";position:absolute;top:0;left:-40%;width:40%;height:100%;background:linear-gradient(90deg,transparent,var(--sky),var(--deep),transparent);animation:flow-move 1.8s linear infinite;}
-.arrow-head{width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;border-left:6px solid var(--deep);align-self:flex-end;margin-top:-3px;margin-right:-1px;}
-.arrow-label{margin-top:8px;font-size:9px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;color:var(--text-mid);text-align:center;white-space:nowrap;}
+.grid-arrow{position:absolute;top:14px;left:100%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;width:max-content;z-index:2;}
+.arrow-glyph{color:var(--deep);font-size:15px;line-height:1;animation:arrow-pulse 1.6s ease-in-out infinite;}
+.arrow-label{margin-top:4px;font-size:7.5px;font-weight:700;letter-spacing:.2px;text-transform:uppercase;color:var(--text-mid);white-space:nowrap;}
 .arrow-label b.good{color:#2d7a0a;}
 .arrow-label b.retry{color:#c0392b;}
-@keyframes flow-move{from{left:-40%;}to{left:100%;}}
-@keyframes flow-move-v{from{top:-40%;}to{top:100%;}}
-.retry-loop{position:absolute;left:0;top:100%;width:1076px;height:72px;pointer-events:none;}
-.retry-loop svg{width:100%;height:100%;overflow:visible;}
+@keyframes arrow-pulse{0%,100%{opacity:.55;transform:translateX(0);}50%{opacity:1;transform:translateX(3px);}}
+.retry-loop-grid{position:relative;width:100%;height:52px;margin-top:2px;pointer-events:none;}
+.retry-loop-grid svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;}
 .retry-path{fill:none;stroke:#ef4444;stroke-width:2;stroke-dasharray:6 5;animation:retry-flow 1s linear infinite;}
 @keyframes retry-flow{to{stroke-dashoffset:-22;}}
-.retry-loop-label{position:absolute;left:538px;top:44px;transform:translateX(-50%);font-size:9px;font-weight:700;letter-spacing:.3px;color:#c0392b;background:rgba(255,255,255,.85);padding:2px 9px;border-radius:100px;border:1px solid rgba(239,68,68,.35);white-space:nowrap;z-index:1;}
-.arch-stack{display:flex;flex-direction:column;gap:12px;margin-top:32px;}
-.stack-item{padding:13px 16px;display:flex;align-items:center;gap:14px;}
-.stack-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
-.stack-name{font-size:13px;font-weight:600;color:var(--text-dark);}
-.stack-role{font-size:12px;color:var(--text-mid);}
+.retry-arrowhead{position:absolute;left:30%;top:0;transform:translate(-50%,-1px);width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:8px solid #ef4444;}
+.retry-loop-label{position:absolute;left:50%;top:14px;transform:translateX(-50%);font-size:9px;font-weight:700;letter-spacing:.3px;color:#c0392b;background:rgba(255,255,255,.85);padding:2px 9px;border-radius:100px;border:1px solid rgba(239,68,68,.35);white-space:nowrap;z-index:1;}
 .modal-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(10,34,64,0.60);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:20px;}
 .modal-overlay.open{display:flex;}
 .modal{width:100%;max-width:780px;background:rgba(255,255,255,0.75);backdrop-filter:blur(28px);border:1.5px solid rgba(255,255,255,0.85);border-radius:24px;box-shadow:0 24px 80px rgba(12,113,198,0.22);overflow:hidden;animation:modalIn .25s ease;}
@@ -113,9 +106,10 @@ section{padding:88px 0;}
 footer{padding:44px 0;text-align:center;border-top:1px solid rgba(255,255,255,.65);}
 .footer-logo{font-family:"Space Grotesk",sans-serif;font-size:20px;font-weight:700;color:var(--deep);margin-bottom:6px;}
 .footer-sub{font-size:12px;color:var(--text-mid);}
+.footer-stack{font-size:11px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--deep);opacity:.85;margin-top:14px;}
 .footer-links{display:flex;gap:22px;justify-content:center;margin-top:14px;}
 .footer-links a{font-size:12px;color:var(--text-mid);text-decoration:none;font-weight:500;}
-@media(max-width:768px){.arch-wrapper{grid-template-columns:1fr;}.features-grid{grid-template-columns:1fr;}.nav-links{display:none;}.hero-stats{padding:16px 20px;gap:24px;}.arch-scroll{overflow-x:visible;padding-bottom:4px;}.arch-diagram-h{flex-direction:column;width:100%;align-items:stretch;}.arch-node-h{flex:none;width:100%;max-width:340px;margin:0 auto;text-align:left;padding:16px 20px;}.node-icon-h{margin:0 0 8px;}.node-desc-h{font-size:12px;}.arch-arrow{flex:none;flex-direction:row;width:100%;max-width:340px;margin:0 auto;padding:8px 0;align-items:center;gap:10px;}.arrow-line{width:2px;height:22px;}.arrow-line::after{left:0;top:-40%;width:100%;height:40%;background:linear-gradient(180deg,transparent,var(--sky),var(--deep),transparent);animation:flow-move-v 1.8s linear infinite;}.arrow-head{border-left:4px solid transparent;border-right:4px solid transparent;border-top:6px solid var(--deep);border-bottom:none;align-self:center;margin:0;}.arrow-label{margin-top:0;text-align:left;white-space:normal;}.retry-loop{display:none;}}
+@media(max-width:768px){.features-grid{grid-template-columns:1fr;}.nav-links{display:none;}.hero-stats{padding:16px 20px;gap:24px;}.arch-diagram-grid{grid-template-columns:1fr;gap:28px;}.arch-node-h{max-width:340px;text-align:left;padding:16px 20px;}.node-icon-h{margin:0 0 8px;}.node-desc-h{font-size:12px;}.grid-arrow{position:static;transform:none;flex-direction:row;justify-content:flex-start;margin-top:8px;gap:8px;}.arrow-glyph{transform:rotate(90deg);}.arrow-label{margin-top:0;}.retry-loop-grid{display:none;}}
 </style>
 </head>
 <body>
@@ -155,56 +149,36 @@ footer{padding:44px 0;text-align:center;border-top:1px solid rgba(255,255,255,.6
 
 <section id="architecture">
   <div class="container">
-    <div class="arch-wrapper">
-      <div>
-        <p class="section-label">Agent Architecture</p>
-        <h2 class="section-title">How the agent thinks</h2>
-        <p class="section-sub">A five-step ReAct loop — each node has a single responsibility, connected by typed LangGraph state and conditional edges.</p>
-        <div class="arch-scroll">
-        <div class="arch-diagram-h" style="margin-top:36px;">
-          <div class="arch-node-h glass n1"><div class="node-icon-h">🧠</div><div class="node-title-h">Understand</div><div class="node-desc-h">Reformulates into PubMed keywords</div></div>
-          <div class="arch-arrow"><div class="arrow-line"></div><div class="arrow-head"></div><div class="arrow-label">MeSH Query</div></div>
-          <div class="arch-node-h glass n2"><div class="node-icon-h">🔍</div><div class="node-title-h">Search</div><div class="node-desc-h">Fetches top 5 PubMed abstracts</div></div>
-          <div class="arch-arrow"><div class="arrow-line"></div><div class="arrow-head"></div><div class="arrow-label">5 Abstracts</div></div>
-          <div class="arch-node-h glass n3"><div class="node-icon-h">✍️</div><div class="node-title-h">Synthesize</div><div class="node-desc-h">Generates grounded, cited answer</div></div>
-          <div class="arch-arrow"><div class="arrow-line"></div><div class="arrow-head"></div><div class="arrow-label">Cited Answer</div></div>
-          <div class="arch-node-h glass n4"><div class="node-icon-h">🪞</div><div class="node-title-h">Reflect</div><div class="node-desc-h">Self-checks grounding &amp; hallucination</div></div>
-          <div class="arch-arrow"><div class="arrow-line"></div><div class="arrow-head"></div><div class="arrow-label"><b class="good">GOOD</b> / <b class="retry">RETRY</b></div></div>
-          <div class="arch-node-h glass n5"><div class="node-icon-h">✅</div><div class="node-title-h">Response</div><div class="node-desc-h">Cited answer + eval scores</div></div>
-          <div class="retry-loop">
-            <svg viewBox="0 0 1076 72" preserveAspectRatio="none">
-              <path class="retry-path" d="M 770 0 C 770 48, 306 48, 306 0"></path>
-              <polygon points="306,0 299,12 313,12" fill="#ef4444"></polygon>
-            </svg>
-            <div class="retry-loop-label">↩ RETRY → re-search</div>
+    <div class="arch-wrapper" style="text-align:center;">
+      <p class="section-label">Agent Architecture</p>
+      <h2 class="section-title">How the agent thinks</h2>
+      <p class="section-sub" style="margin:0 auto;">A five-step ReAct loop — each node has a single responsibility, connected by typed LangGraph state and conditional edges.</p>
+      <div class="arch-diagram-wrap">
+        <div class="arch-diagram-grid">
+          <div class="arch-cell">
+            <div class="arch-node-h glass n1"><div class="node-icon-h">🧠</div><div class="node-title-h">Understand</div><div class="node-desc-h">Reformulates into PubMed keywords</div></div>
+            <div class="grid-arrow"><span class="arrow-glyph">→</span><span class="arrow-label">MeSH Query</span></div>
+          </div>
+          <div class="arch-cell">
+            <div class="arch-node-h glass n2"><div class="node-icon-h">🔍</div><div class="node-title-h">Search</div><div class="node-desc-h">Fetches top 5 abstracts</div></div>
+            <div class="grid-arrow"><span class="arrow-glyph">→</span><span class="arrow-label">5 Abstracts</span></div>
+          </div>
+          <div class="arch-cell">
+            <div class="arch-node-h glass n3"><div class="node-icon-h">✍️</div><div class="node-title-h">Synthesize</div><div class="node-desc-h">Grounded, cited answer</div></div>
+            <div class="grid-arrow"><span class="arrow-glyph">→</span><span class="arrow-label">Cited Answer</span></div>
+          </div>
+          <div class="arch-cell">
+            <div class="arch-node-h glass n4"><div class="node-icon-h">🪞</div><div class="node-title-h">Reflect</div><div class="node-desc-h">Self-checks for hallucination</div></div>
+            <div class="grid-arrow"><span class="arrow-glyph">→</span><span class="arrow-label"><b class="good">GOOD</b> / <b class="retry">RETRY</b></span></div>
+          </div>
+          <div class="arch-cell">
+            <div class="arch-node-h glass n5"><div class="node-icon-h">✅</div><div class="node-title-h">Response</div><div class="node-desc-h">Cited answer + eval scores</div></div>
           </div>
         </div>
-        </div>
-      </div>
-      <div id="stack">
-        <p class="section-label">Tech Stack</p>
-        <h2 class="section-title">Built for production</h2>
-        <p class="section-sub">Every layer chosen for reliability, not just demos.</p>
-        <div class="arch-stack">
-          <div class="stack-item glass2"><div class="stack-dot" style="background:#0C71C6;box-shadow:0 0 8px #0C71C6;"></div><div><div class="stack-name">LangGraph 0.1.x</div><div class="stack-role">Agent orchestration · StateGraph · conditional edges</div></div></div>
-          <div class="stack-item glass2"><div class="stack-dot" style="background:#74E4FF;box-shadow:0 0 8px #74E4FF;"></div><div><div class="stack-name">Groq · llama-3.1-8b-instant</div><div class="stack-role">LLM inference · understand + synthesize + reflect</div></div></div>
-          <div class="stack-item glass2"><div class="stack-dot" style="background:#86E750;box-shadow:0 0 8px #86E750;"></div><div><div class="stack-name">PubMed · Biopython Entrez</div><div class="stack-role">Medical literature tool · 35M+ indexed articles</div></div></div>
-          <div class="stack-item glass2"><div class="stack-dot" style="background:#f59e0b;box-shadow:0 0 8px #f59e0b;"></div><div><div class="stack-name">FastAPI + Uvicorn</div><div class="stack-role">Backend API · async · CORS configured from day 1</div></div></div>
-          <div class="stack-item glass2"><div class="stack-dot" style="background:#0C71C6;box-shadow:0 0 8px #0C71C6;"></div><div><div class="stack-name">Next.js 16 · TypeScript</div><div class="stack-role">Frontend · App Router · runtime env vars</div></div></div>
-          <div class="stack-item glass2"><div class="stack-dot" style="background:#86E750;box-shadow:0 0 8px #86E750;"></div><div><div class="stack-name">RAGAS</div><div class="stack-role">Faithfulness · answer relevancy · context recall</div></div></div>
-          <div class="stack-item glass2"><div class="stack-dot" style="background:#74E4FF;box-shadow:0 0 8px #74E4FF;"></div><div><div class="stack-name">Render + Vercel</div><div class="stack-role">Backend + frontend deployment · production</div></div></div>
-        </div>
-        <div style="margin-top:28px;">
-          <p class="section-label">Agentic Concepts</p>
-          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;">
-            <span style="background:rgba(12,113,198,.10);color:var(--deep);padding:6px 14px;border-radius:100px;font-size:12px;font-weight:600;border:1px solid rgba(12,113,198,.20);">ReAct Loop</span>
-            <span style="background:rgba(12,113,198,.10);color:var(--deep);padding:6px 14px;border-radius:100px;font-size:12px;font-weight:600;border:1px solid rgba(12,113,198,.20);">Tool Calling</span>
-            <span style="background:rgba(12,113,198,.10);color:var(--deep);padding:6px 14px;border-radius:100px;font-size:12px;font-weight:600;border:1px solid rgba(12,113,198,.20);">Self-Reflection</span>
-            <span style="background:rgba(12,113,198,.10);color:var(--deep);padding:6px 14px;border-radius:100px;font-size:12px;font-weight:600;border:1px solid rgba(12,113,198,.20);">Conditional Edges</span>
-            <span style="background:rgba(134,231,80,.15);color:#2d7a0a;padding:6px 14px;border-radius:100px;font-size:12px;font-weight:600;border:1px solid rgba(134,231,80,.40);">Short-term Memory</span>
-            <span style="background:rgba(134,231,80,.15);color:#2d7a0a;padding:6px 14px;border-radius:100px;font-size:12px;font-weight:600;border:1px solid rgba(134,231,80,.40);">Structured Output</span>
-            <span style="background:rgba(134,231,80,.15);color:#2d7a0a;padding:6px 14px;border-radius:100px;font-size:12px;font-weight:600;border:1px solid rgba(134,231,80,.40);">Grounded Generation</span>
-          </div>
+        <div class="retry-loop-grid">
+          <svg viewBox="0 0 100 24" preserveAspectRatio="none"><path class="retry-path" vector-effect="non-scaling-stroke" d="M 70 0 C 70 16, 30 16, 30 0"></path></svg>
+          <div class="retry-arrowhead"></div>
+          <div class="retry-loop-label">↩ RETRY → re-search</div>
         </div>
       </div>
     </div>
@@ -264,6 +238,7 @@ footer{padding:44px 0;text-align:center;border-top:1px solid rgba(255,255,255,.6
   <div class="container">
     <div class="footer-logo">ClinIQ</div>
     <div class="footer-sub">Built by Neel Khairnar · Final-year B.Tech CSE (AI/ML) · PCU Pune</div>
+    <div class="footer-stack">LangGraph · Groq · PubMed · FastAPI · Next.js · RAGAS · Render</div>
     <div class="footer-links"><a href="https://github.com/Neel-K26/clinical-agent" target="_blank">GitHub</a><a href="https://linkedin.com/in/neel-khairnar" target="_blank">LinkedIn</a><a href="https://github.com/Neel-K26" target="_blank">Portfolio</a></div>
   </div>
 </footer>
